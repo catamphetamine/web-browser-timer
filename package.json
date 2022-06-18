@@ -1,0 +1,35 @@
+{
+  "name": "web-browser-timer",
+  "version": "0.1.0",
+  "description": "Web browser timer",
+  "type": "module",
+  "main": "./index.js",
+  "sideEffects": false,
+  "types": "./index.d.ts",
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "mocha": "^10.0.0"
+  },
+  "scripts": {
+    "test": "node --experimental-json-modules node_modules/mocha/bin/_mocha --require ./test/setup.js --reporter spec --colors --bail --exit --recursive \"./{,!(node_modules)/**/}*.test.js\"",
+    "prepublishOnly": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/catamphetamine/web-browser-timer.git"
+  },
+  "keywords": [
+    "frontend",
+    "storage",
+    "browser"
+  ],
+  "author": "catamphetamine <purecatamphetamine@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/catamphetamine/web-browser-timer/issues"
+  },
+  "homepage": "https://gitlab.com/catamphetamine/web-browser-timer#readme",
+  "dependencies": {
+    "web-browser-tab": "^0.1.3"
+  }
+}
