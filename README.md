@@ -47,6 +47,11 @@ const timerId = timer.schedule(() => triggered = true, 100)
 await timer.next() === timerId
 triggered === true
 await timer.next() === undefined
+
+// In cases when there're no scheduled functions,
+// to skip a certain amount of time, use this technique:
+timer.schedule(() => {}, timeAmount)
+await timer.next()
 ```
 
 ## Test
