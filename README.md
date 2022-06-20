@@ -2,6 +2,8 @@
 
 A wrapper around `setTimeout`/`clearTimeout` for better API interface and testing.
 
+Also it fixes `setTimeout`'s [bug](https://stackoverflow.com/questions/3468607/why-does-settimeout-break-for-large-millisecond-delay-values) when it fires the callback immediately if the delay is larger than about 28 days.
+
 ## Install
 
 ```
@@ -22,6 +24,9 @@ const timerId = timer.schedule(func, delay)
 
 // Analogous to `clearTimeout()`.
 timer.cancel(timerId)
+
+// Analogous to `Date.now()`.
+timer.now()
 ```
 
 ### Stub
@@ -36,10 +41,12 @@ const timer = new TestTimer()
 let triggered = false
 const timerId = timer.schedule(() => triggered = true, 100)
 
-// Skip some time to trigger the scheduled function.
-await timer.skip(100)
-
+// Skip the time and trigger the next closest scheduled function.
+// If there was any scheduled function, returns a triggered timer ID.
+// Otherwise, returns `undefined`.
+await timer.next() === timerId
 triggered === true
+await timer.next() === undefined
 ```
 
 ## Test

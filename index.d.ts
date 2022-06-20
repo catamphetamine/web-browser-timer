@@ -13,5 +13,5 @@ export class Timer {}
 
 interface TestTimer extends ITimer {}
 export class TestTimer {
-  async skip(timeAmount: number): void;
+  async next(): TimerId | undefined;
 }
