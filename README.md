@@ -37,9 +37,9 @@ It provides additional methods:
 
 * `async next(): TimerId?` — If there're any scheduled functions, skips the time to trigger the next closest one, and returns the triggered timer ID. If there're no scheduled functions, returns `undefined`.
 
-* `async end(): TimerId[]` — Sequentially skips the time to trigger every scheduled function until there're no scheduled functions left. Returns a list of the triggered timer IDs. If some of the functions being triggered schedule new functions, those new function will get triggered as well.
-
 * `async fastForward(timeAmount: number): TimerId[]` — Sequentially skips the time to trigger every scheduled function within the specified timeframe. Returns a list of the triggered timer IDs. If some of the functions being triggered schedule new functions, those new function will get triggered as well if they're within the timeframe.
+
+* `async fastForwardToLast(): TimerId[]` — Sequentially skips the time to trigger every scheduled function until there're no scheduled functions left. Returns a list of the triggered timer IDs. If some of the functions being triggered schedule new functions, those new function will get triggered as well.
 
 ```js
 import { TestTimer } from 'web-browser-timer'
