@@ -14,4 +14,6 @@ export class Timer {}
 interface TestTimer extends ITimer {}
 export class TestTimer {
   async next(): TimerId | undefined;
+  async end(): TimerId[];
+  async fastForward(timeAmount: number): TimerId[];
 }

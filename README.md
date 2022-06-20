@@ -33,25 +33,26 @@ timer.now()
 
 `TestTimer` could be used in place of `Timer` in tests.
 
+It provides additional methods:
+
+* `async next(): TimerId?` — If there're any scheduled functions, skips the time to trigger the next closest one, and returns the triggered timer ID. If there're no scheduled functions, returns `undefined`.
+
+* `async end(): TimerId[]` — Sequentially skips the time to trigger every scheduled function until there're no scheduled functions left. Returns a list of the triggered timer IDs. If some of the functions being triggered schedule new functions, those new function will get triggered as well.
+
+* `async fastForward(timeAmount: number): TimerId[]` — Sequentially skips the time to trigger every scheduled function within the specified timeframe. Returns a list of the triggered timer IDs. If some of the functions being triggered schedule new functions, those new function will get triggered as well if they're within the timeframe.
+
 ```js
 import { TestTimer } from 'web-browser-timer'
 
 const timer = new TestTimer()
 
 let triggered = false
-const timerId = timer.schedule(() => triggered = true, 100)
+const timerId = timer.schedule(async () => triggered = true, 100)
 
-// Skip the time and trigger the next closest scheduled function.
-// If there was any scheduled function, returns a triggered timer ID.
-// Otherwise, returns `undefined`.
 await timer.next() === timerId
 triggered === true
-await timer.next() === undefined
 
-// In cases when there're no scheduled functions,
-// to skip a certain amount of time, use this technique:
-timer.schedule(() => {}, timeAmount)
-await timer.next()
+await timer.next() === undefined
 ```
 
 ## Test
