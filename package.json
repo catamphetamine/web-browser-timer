@@ -1,6 +1,6 @@
 {
   "name": "web-browser-timer",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Web browser timer",
   "type": "module",
   "main": "./index.js",

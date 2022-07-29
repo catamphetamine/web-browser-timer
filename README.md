@@ -27,6 +27,9 @@ timer.cancel(timerId)
 
 // Analogous to `Date.now()`.
 timer.now()
+
+// Waits for a specified time amount, in milliseconds.
+timer.waitFor(1000)
 ```
 
 ### Stub
