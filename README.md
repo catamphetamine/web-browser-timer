@@ -36,7 +36,11 @@ timer.waitFor(1000)
 
 `TestTimer` could be used in place of `Timer` in tests.
 
-It provides additional methods:
+`TestTimer` accepts constructor arguments:
+* `parameters?: object`
+  * `log?: (...args) => void` — Logs debug info.
+
+`TestTimer` provides additional methods:
 
 * `async next(): TimerId?` — If there're any scheduled functions, skips the time to trigger the next closest one, and returns the triggered timer ID. If there're no scheduled functions, returns `undefined`.
 

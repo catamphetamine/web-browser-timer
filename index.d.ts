@@ -6,6 +6,7 @@ export interface ITimer {
 	schedule(func: () => void, delay: number): TimerId;
 	cancel(timerId: TimerId): void;
 	now(): number;
+	waitFor(delay: number): Promise<void>;
 }
 
 interface Timer extends ITimer {}
@@ -13,7 +14,10 @@ export class Timer {}
 
 interface TestTimer extends ITimer {}
 export class TestTimer {
-  async next(): TimerId | undefined;
-  async fastForward(timeAmount: number): TimerId[];
-  async fastForwardToLast(): TimerId[];
+  constructor(parameters: {
+    log: (...args: any[]) => void
+  });
+  next(): Promise<TimerId | undefined>;
+  fastForward(timeAmount: number): Promise<TimerId[]>;
+  fastForwardToLast(): Promise<TimerId[]>;
 }
