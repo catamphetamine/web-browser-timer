@@ -32,7 +32,7 @@ timer.now()
 timer.waitFor(1000)
 ```
 
-### Stub
+### `TestTimer`
 
 `TestTimer` could be used in place of `Timer` in tests.
 
@@ -61,6 +61,15 @@ triggered === true
 
 await timer.next() === undefined
 ```
+
+### `TestTimer` and `Promise`s
+
+The thing about `TestTimer` is that it doesn't really work with `Promise`s: when a `Promise` is `resolve`d or `reject`ed, it is scheduled to "return" at the end of an "event loop" iteration. But `TestTimer` itself doesn't really care or know about the "event loop" so it doesn't "see" any ready-to-return `Promises` when calling functions like `.skipForward(timeAmount)` on it. The result is `Promise`s not being `resolve`d or `reject`ed as if those were "stuck". There seems to be no solution for the issue.
+
+Possible workarounds:
+
+* Use `callback`s instead of `Promise`s in the code that it covered by tests that use `TestTimer`.
+* Call `timer.skipForward()` repeatedly with smaller time increments. The `.skipForward()` function is an `async` one meaning that an `await timer.skipForward()` call itself does trigger ending of a current "event loop" iteration which will "unstuck" any ready-to-return `Promise`s when that call get executed.
 
 ## Test
 
