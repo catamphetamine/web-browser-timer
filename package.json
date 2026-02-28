@@ -3,16 +3,19 @@
   "version": "0.1.10",
   "description": "Web browser timer",
   "type": "module",
-  "main": "./index.js",
   "sideEffects": false,
-  "types": "./index.d.ts",
+  "exports": {
+    "default": "./index.js",
+    "types": "./index.d.ts"
+  },
   "devDependencies": {
     "chai": "^4.3.6",
     "mocha": "^10.0.0"
   },
   "scripts": {
-    "test": "node --experimental-json-modules node_modules/mocha/bin/_mocha --require ./test/setup.js --reporter spec --colors --bail --exit --recursive \"./{,!(node_modules)/**/}*.test.js\"",
-    "prepublishOnly": "npm test"
+    "test": "mocha --bail \"lib/**/*.test.js\" \"test/*.test.js\" \"test/!(exports)/**/*.test.js\"",
+    "test:exports": "mocha --bail \"test/exports/**/*.test.js\"",
+    "prepublishOnly": "npm run test && npm run test:exports"
   },
   "repository": {
     "type": "git",
